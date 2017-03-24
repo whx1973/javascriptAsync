@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+	<script type="text/javascript">
+		var ajax = $.ajax('data.json');
+		ajax.done(function(){
+			console.log('success');
+		})
+		.fail(function(){
+			cosole.log('error');
+		})
+		.done(function(){
+			console.log('success 2');
+		});
+		console.log(ajax);
+
+		function waitHandle() {
+			var dtd = $.Deferred();
+			var wait = function (dtd) {
+				var task = function(){
+					console.log('done');
+					dtd.reject();
+				}
+				setTimeout(task, 2000);
+				return dtd;
+			}
+			return wait(dtd);
+
+		}
+
+		var w = waitHandle()
+		w.then(function () {
+		    console.log('ok 1')
+		}, function () {
+		    console.log('err 1');
+		    return w.reject();
+		}).then(function () {
+		    console.log('ok 2')
+		}, function () {
+		    console.log('err 2')
+		})
+	</script>
+</body>
+</html>
