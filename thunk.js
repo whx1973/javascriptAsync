@@ -7,5 +7,5 @@ const thunk = function (fileName, codeType){
 } 
 const readFileThunk = thunk(path.resolve(__dirname,'./data/data1.json'), 'utf-8'); 
 readFileThunk((err, data) => {
-	console.log(data);
+	console.log("data1.json = "+data);
 })
